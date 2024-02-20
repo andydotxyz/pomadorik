@@ -11,6 +11,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/driver/desktop"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/layout"
@@ -85,14 +86,6 @@ func main() {
 	App.Run()
 }
 
-// // will show desktop notification
-// func showNotification(a fyne.App) {
-// 	time.Sleep(time.Second * 2)
-// 	a.SendNotification(fyne.NewNotification("Example Title", "Example Content"))
-// }
-
-
-// ==============================================> SYSTRAY
 func setupSystray(desk desktop.App) {
 	// Set up menu
 	desk.SetSystemTrayIcon(theme.NewThemedResource(icon.Disabled))
@@ -111,38 +104,6 @@ func setupSystray(desk desktop.App) {
 		}),
 		)
 	desk.SetSystemTrayMenu(menu)
-}
-
-// ==============================================> ICON
-type Resource interface {
-	Name() string
-	Content() []byte
-}
-type StaticResource struct {
-	StaticName    string
-	StaticContent []byte
-}
-func (r *StaticResource) Name() string {
-	return r.StaticName
-}
-func (r *StaticResource) Content() []byte {
-	return r.StaticContent
-}
-
-func LoadResourceFromPath(path string) (Resource, error) {
-	bytes, err := ioutil.ReadFile(filepath.Clean(path))
-	if err != nil {
-			return nil, err
-	}
-	name := filepath.Base(path)
-	return NewStaticResource(name, bytes), nil
-}
-
-func NewStaticResource(name string, content []byte) *StaticResource {
-	return &StaticResource{
-			StaticName:    name,
-			StaticContent: content,
-	}
 }
 
 func buildContent(onBtnHandler BtnHandlerFn) fyne.CanvasObject {
