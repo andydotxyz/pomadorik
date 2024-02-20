@@ -1,3 +1,8 @@
-//go:generate fyne bundle -package icon -name Data -o icondata.go app-icon.png
+//go:generate fyne bundle -package icon -o icondata.go .
 
 package icon
+
+var (
+	Data     = resourceAppIconPng
+	Disabled = resourceDisabledPng
+)

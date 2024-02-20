@@ -44,13 +44,10 @@ var App fyne.App
 func main() {
 	App = app.NewWithID(APP_NAME)
 
-	// setuping window 
+	// setup window
 	mainWindow = App.NewWindow(APP_NAME)
 	mainWindow.Resize(fyne.NewSize(APP_WIDTH, APP_HEIGHT))
-
-	// set icon 
-	r, _ := LoadResourceFromPath("./icon/app-icon.png")
-	mainWindow.SetIcon(r)
+	mainWindow.SetIcon(icon.Data)
 
 	if desk, ok := App.(desktop.App); ok {
 		setupSystray(desk)
@@ -100,7 +97,7 @@ func main() {
 // ==============================================> SYSTRAY
 func setupSystray(desk desktop.App) {
 	// Set up menu
-	desk.SetSystemTrayIcon(icon.Data)
+	desk.SetSystemTrayIcon(theme.NewThemedResource(icon.Disabled))
 
 	menu := fyne.NewMenu(APP_NAME,
 		fyne.NewMenuItem("Open", mainWindow.Show),
@@ -214,7 +211,11 @@ func updateTimerTxt(timer int, timerTxt *canvas.Text) {
 }
 
 func startCountdown(defaultTime int) {
-	// if timer already started, at again start, just stop it 
+	fyne.CurrentApp().Driver().SetDisableScreenBlanking(true)
+	if desk, ok := App.(desktop.App); ok {
+		desk.SetSystemTrayIcon(icon.Data)
+	}
+	// if timer already started, at again start, just stop it
 	TIMER = defaultTime
 	updateTimerTxt(TIMER, TIMER_TXT) 
 
@@ -231,6 +232,11 @@ func startCountdown(defaultTime int) {
 			TICKER = nil
 			mainWindow.Show()
 			mainWindow.RequestFocus()
+
+			if desk, ok := App.(desktop.App); ok {
+				desk.SetSystemTrayIcon(theme.NewThemedResource(icon.Disabled))
+			}
+			fyne.CurrentApp().Driver().SetDisableScreenBlanking(false)
 		}
 
 		TIMER--
