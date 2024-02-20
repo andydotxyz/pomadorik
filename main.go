@@ -93,7 +93,7 @@ func setupSystray(desk desktop.App) {
 	menu := fyne.NewMenu(APP_NAME,
 		fyne.NewMenuItem("Open", mainWindow.Show),
 		fyne.NewMenuItemSeparator(),
-		fyne.NewMenuItem("Tomato", func() {
+		fyne.NewMenuItem("Focus", func() {
 			startCountdown(DEFAULT_TIMERS["TOMATO"])
 		}),
 		fyne.NewMenuItem("Short break", func() {
@@ -110,7 +110,7 @@ func buildContent(onBtnHandler BtnHandlerFn) fyne.CanvasObject {
 	greenColor := TextColors["green"]
 
 	timer := buildTxtWithStyle(formatTimer(TIMER), greenColor, 40)
-	tomatoBtn := widget.NewButton("Tomato", onBtnHandler("TOMATO", timer))
+	tomatoBtn := widget.NewButton("Focus", onBtnHandler("TOMATO", timer))
 	shortBrakeBtn := widget.NewButton("Short brake", onBtnHandler("SHORT", timer))
 	longBrakeBtn := widget.NewButton("Long brake", onBtnHandler("LONG", timer))
 
@@ -132,7 +132,7 @@ func buildContent(onBtnHandler BtnHandlerFn) fyne.CanvasObject {
 			layout.NewCenterLayout(), 
 			// container.New(layout.NewVBoxLayout(),
 				buildTxtWithStyle(
-					"Press \"Space\" to start Tomato",
+					"Press \"Space\" to start Focus",
 					TextColors["grey"],
 					10,
 				),

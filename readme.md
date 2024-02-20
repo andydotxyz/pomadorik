@@ -1,20 +1,14 @@
-# Pomadorik
+# Pomodorik
+
+A fork of the ["Pomadorik"](https://github.com/Nikeweke/pomadorik) app created by [Nikeweke](https://github.com/Nikeweke)
 
 > Golang + Fyne 
 
-![](https://github.com/Nikeweke/pomadorik/blob/master/screenshots/Screenshot_1.png)
-![](https://github.com/Nikeweke/pomadorik/blob/master/screenshots/Screenshot_2.png)
+![](https://github.com/andydotxyz/pomodorik/blob/master/screenshots/Screenshot_1.png)
+![](https://github.com/andydotxyz/pomodorik/blob/master/screenshots/Screenshot_2.png)
 
-### To make new icon 
-
-1. Go to `icon` folder
-2. Run the `> make_icon.bat icon.ico`
-3. It will generate `iconwin.go` 
+This is tested for Windows, macOS, Linux, iOS and Android
 
 ### TODO
 
-* [ ] when start timer its freeze on 1-2 sec
-* [ ] on space press, make some notif that its starts
-* [ ] change brakes timers 
-* [x] hide to tray
-* [x] icon in tray and bottom bar 
+* [ ] Hide the app icon when it is only in systray

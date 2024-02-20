@@ -1,7 +1,7 @@
 //go:generate fyne bundle -name SOUND_FILE -o sounddata.go sounds/timer.mp3
 package main
 
-const APP_NAME = "Pomadorik"
+const APP_NAME = "Pomodorik"
 
 const APP_WIDTH = 250
 const APP_HEIGHT = 250
