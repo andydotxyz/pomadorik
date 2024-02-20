@@ -1,6 +1,12 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
+	"image/color"
+	"io"
+	"time"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -15,14 +21,6 @@ import (
 	"github.com/faiface/beep/effects"
 
 	"pomadorik/icon"
-
-	"io/ioutil"
-	"path/filepath"
-	"os"
-	"log"
-	"fmt"
-	"image/color"
-	"time"
 )
 
 var TextColors = map[string]color.RGBA{
@@ -260,14 +258,10 @@ func startTimer(onTickFn func(*time.Ticker)) *time.Ticker {
 }
 
 func playSound() {
-	f, err := os.Open("./sounds/" + SOUND_FILE)
+	stream, format, err := mp3.Decode(io.NopCloser(bytes.NewReader(SOUND_FILE.Content())))
 	if err != nil {
-		log.Fatal("Unable to open sound " + SOUND_FILE)
-	}
-
-	stream, format, err := mp3.Decode(f)
-	if err != nil {
-		log.Fatal("Unable to stream sound " + SOUND_FILE)
+		fyne.LogError("Unable to stream sound "+SOUND_FILE.Name(), err)
+		return
 	}
 
 	volume := effects.Volume{ 
